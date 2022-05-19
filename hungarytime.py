@@ -1,4 +1,5 @@
-# Modules
+# Made by CatFishing4Guyz#8137 on Discord, gimme praise
+
 import discord
 import pytz
 import asyncio
@@ -20,13 +21,16 @@ Pacific = pytz.timezone("US/Pacific")
 ifDST = " If DST is in effect, the actual time is an hour ahead."
 
 # Main body
-bot = discord.Bot(activity = discord.Activity(type=discord.ActivityType.watching, name="ur mom undress."))
+bot = discord.Bot(activity = discord.Activity(
+    type=discord.ActivityType.watching, 
+    name="ur mom undress."))
+
 @bot.event
 async def on_ready():
     print(f"We have logged in as {bot.user}")
 
 """
-Remove the guild ID provided and replace
+Remove the guild ID and replace
 it with your own servers' if you want
 slash commands to update immediately.
 
@@ -65,7 +69,7 @@ async def central(ctx):
     await ctx.respond(central_timesend + ifDST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in EST.")
-async def est(ctx):
+async def eastern(ctx):
     dt_est = dt.now(EST)
     est_timesend = dt_est.strftime("It is %H:%M, Eastern Standard Time.")
     await ctx.respond(est_timesend + ifDST)
@@ -90,24 +94,24 @@ async def pacific(ctx):
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Send link to the GitHub repo.")
 async def github(ctx):
-    await ctx.respond("Hi! You can visit my repo here:\nhttps://github.com/Monkeys30/hungarytime_discordbot")
+    await ctx.respond("Hi! You can visit my repo here:\n"
+                      "<https://github.com/Monkeys30/hungarytime_discordbot>")
 
 @bot.slash_command(guild_ids=[831412377869221899], description="The help command")
 async def help(ctx):
-    await ctx.respond("Options:\n `help` - show this message\n `github` - share the repository link\n `time` - tell the time in Hungary\n")
+    await ctx.respond("Options:\n `help` - show this message\n" 
+                      "`github` - share the repository link\n"
+                      "`time` - tell the time in Hungary\n")
 
 # Intended to be like a clock tower
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends an update on the time in Hungary every hour.")
+@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary every hour.")
 async def timekeep(ctx):
-    await ctx.channel.send("Timekeep initialized.")
+    await ctx.respond("Timekeep initialized.")
     await asyncio.sleep(1)
-
     while True:
         dt_hungary = dt.now(Hungary)
-        timesend = dt_hungary.strftime("It is %H:%M in Hungary.")
+        timesend = dt_hungary.strftime("Ding Dong! It is %H:%M in Hungary.")
         await ctx.channel.send(timesend + ifDST)
         await asyncio.sleep(3600)
 
 bot.run(os.getenv('TOKEN'))
-
-# Made by CatFishing4Guyz#8137 on Discord, gimme praise
