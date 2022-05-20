@@ -7,21 +7,23 @@ If you do, hmu.
 
 Other than Hungary, I've added other timezones, right now there's:
 
-`Alaska`,
+`Alaska`
   
-`Mountain`,
+`Mountain`
  
-`Philippines`, 
+`Philippines`
 
-`Central`, 
+`Central`
 
-`Eastern`,  
+`Eastern` 
 
-`Samoa`, 
+`Samoa`
 
-`UK`, 
+`UK`
 
-`Pacific`.
+`Pacific`
+
+`India`
 
 To use, your bot's token, then make a new environment variable named `TOKEN`, and paste your
 bot's token in the value.

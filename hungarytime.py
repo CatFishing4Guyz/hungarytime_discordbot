@@ -16,9 +16,10 @@ EST = pytz.timezone("US/Eastern")
 Samoa = pytz.timezone("US/Samoa")
 UK = pytz.timezone("GMT")
 Pacific = pytz.timezone("US/Pacific")
+India = pytz.timezone("Asia/Kolkata")
 
-# Add DST reminder
-ifDST = " If DST is in effect, the actual time is an hour ahead."
+# DST reminder
+DST = " If DST is in effect, the actual time is an hour ahead."
 
 # Main body
 bot = discord.Bot(activity = discord.Activity(
@@ -36,72 +37,61 @@ slash commands to update immediately.
 
 Enable developer mode in Discord and
 right click on your server from the 
-server list and select "Copy ID"
+server list and select "Copy ID".
+
+You might get a 405 error, but that's
+harmless, and won't affect anything.
 """
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary")
+
+@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary.")
 async def time(ctx):
-    dt_hungary = dt.now(Hungary)
-    timesend = dt_hungary.strftime("It is %H:%M in Hungary.")
-    await ctx.respond(timesend + ifDST)
+    hungary = dt.now(Hungary)
+    await ctx.respond(hungary.strftime("It is %H:%M in Hungary.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in the Philippines.")
 async def philippines(ctx):
-    dt_ph = dt.now(Philippines)
-    ph_timesend = dt_ph.strftime("It is %H:%M in the Philippines.")        
-    await ctx.respond(ph_timesend + ifDST)
+    phil = dt.now(Philippines)       
+    await ctx.respond(phil.strftime("It is %H:%M in the Philippines.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the Alaskan time.")
 async def alaska(ctx):
-    dt_alaska = dt.now(Alaska)
-    alaska_timesend = dt_alaska.strftime("It is %H:%M in Alaska, USA.")        
-    await ctx.respond(alaska_timesend + ifDST)
+    alaska = dt.now(Alaska)      
+    await ctx.respond(alaska.strftime("It is %H:%M in Alaska, USA.")  + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Mountain Standard Time.")
 async def mountain(ctx):
-    dt_mountain = dt.now(Mountain)
-    mountain_timesend = dt_mountain.strftime("It is %H:%M in Mountain Time.")        
-    await ctx.respond(mountain_timesend + ifDST)
+    mountain = dt.now(Mountain)      
+    await ctx.respond(mountain.strftime("It is %H:%M in Mountain Time.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Central Time.")
 async def central(ctx):
-    dt_central = dt.now(Central)
-    central_timesend = dt_central.strftime("It is %H:%M in US Central Time.")
-    await ctx.respond(central_timesend + ifDST)
+    central = dt.now(Central)
+    await ctx.respond(central.strftime("It is %H:%M in US Central Time.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in EST.")
 async def eastern(ctx):
-    dt_est = dt.now(EST)
-    est_timesend = dt_est.strftime("It is %H:%M, Eastern Standard Time.")
-    await ctx.respond(est_timesend + ifDST)
+    est = dt.now(EST)
+    await ctx.respond(est.strftime("It is %H:%M, Eastern Standard Time.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in American Samoa.")
 async def samoa(ctx):
-    dt_samoa = dt.now(Samoa)
-    samoa_timesend = dt_samoa.strftime("It is %H:%M in American Samoa.")
-    await ctx.respond(samoa_timesend + ifDST)
+    samoa = dt.now(Samoa)
+    await ctx.respond(samoa.strftime("It is %H:%M in the American Samoa.") + DST)
 
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in the UK.")
 async def uk(ctx):
-    dt_uk = dt.now(UK)
-    uk_timesend = dt_uk.strftime("It is %H:%M in the UK.")
-    await ctx.respond(uk_timesend + ifDST)
+    uk = dt.now(UK)
+    await ctx.respond(uk.strftime("It is %H:%M in the UK.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Pacific Time")
+@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Pacific Time.")
 async def pacific(ctx):
-    dt_pacific = dt.now(Pacific)
-    pacific_timesend = dt_pacific.strftime("It is %H:%M in Pacific Time.")
-    await ctx.respond(pacific_timesend + ifDST)
+    pacific = dt.now(Pacific) 
+    await ctx.respond(pacific.strftime("It is %H:%M in Pacific Time.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Send link to the GitHub repo.")
-async def github(ctx):
-    await ctx.respond("Hi! You can visit my repo here:\n"
-                      "<https://github.com/Monkeys30/hungarytime_discordbot>")
-
-@bot.slash_command(guild_ids=[831412377869221899], description="The help command")
-async def help(ctx):
-    await ctx.respond("Options:\n `help` - show this message\n" 
-                      "`github` - share the repository link\n"
-                      "`time` - tell the time in Hungary\n")
+@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in India.")
+async def india(ctx):
+    india = dt.now(India) 
+    await ctx.respond(india.strftime("It is %H:%M in India.") + DST)
 
 # Intended to be like a clock tower
 @bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary every hour.")
@@ -109,9 +99,30 @@ async def timekeep(ctx):
     await ctx.respond("Timekeep initialized.")
     await asyncio.sleep(1)
     while True:
-        dt_hungary = dt.now(Hungary)
-        timesend = dt_hungary.strftime("Ding Dong! It is %H:%M in Hungary.")
-        await ctx.channel.send(timesend + ifDST)
+        hungary = dt.now(Hungary)
+        await ctx.channel.send(hungary.strftime("Ding Dong! It is %H:%M in Hungary.") + DST)
         await asyncio.sleep(3600)
+
+@bot.slash_command(guild_ids=[831412377869221899], description="Send the link to the GitHub repo.")
+async def github(ctx):
+    await ctx.respond("Hi! You can visit my repository here:\n"
+                      "https://github.com/CatFishing4Guyz/hungarytime_discordbot")
+
+@bot.slash_command(guild_ids=[831412377869221899], description="Sends the list of commands, most are self-explanatory")
+async def help(ctx):
+    await ctx.respond("Options:\n"
+                      "`help` - show this message\n" 
+                      "`github` - sends the link to my repository\n"
+                      "`time` - tells the time in Hungary\n"
+                      "`timekeep` - sends an update on Hungary's time every hour,"
+                      " like a clock tower\n"
+                      "`philippines` - tells the time in the Philippines\n"
+                      "`alaska` - tells the time in Alaska\n"
+                      "`mountain` - tells the US Mountain Time\n"
+                      "`central` - tells the US Central Time\n"
+                      "`eastern` - tells the US Eastern Standard Time\n"
+                      "`pacific` - tell the US Pacific Time\n"
+                      "`samoa` - tell the time in the American Samoa\n"
+                      "`uk` - tell the time in the United Kingdom\n")
 
 bot.run(os.getenv('TOKEN'))
