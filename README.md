@@ -2,6 +2,8 @@
 I decided Googling the time in Hungary to see whether the server admin (who is Hungarian)
 was awake or not was too tiring, so I made this abomination.
 
+[Invite the bot.](https://discord.com/api/oauth2/authorize?client_id=849610604763283496&permissions=2048&scope=bot%20applications.commands)
+
 I'm not adding a way to tell the actual time with DST in effect, I don't know how to do that.
 If you do, hmu.
 
@@ -29,8 +31,8 @@ To use, your bot's token, then make a new environment variable named `TOKEN`, an
 bot's token in the value.
 
 *Note: Using `guild_ids` is nice if you want to update the commands immediately, but it also
-causes a 405 error which I have no idea how to fix. This is harmless but it gets annoying and
-might scare you.*
+might cause a 405 error which I have no idea how to fix. This is harmless but it gets annoying
+and might scare you.*
 
 ### If you're wondering what the modules are for, here's an explanation
 `py-cord` is a maintained fork of `discord.py`, an API wrapper which was abandoned last year.
@@ -47,7 +49,7 @@ It's a bit outdated but it mostly works. There was also a [security breach](http
 that happened recently, so attempting to connect your GitHub account won't work (Internal server error).
 In the meantime, just do what [this StackOverflow answer](https://stackoverflow.com/a/71895325) says.
 
-# Credits
+## Credits
 CatFishing4Guyz, coding the bot, suggestions, testing.
 
 Alive, suggestions, testing, and encouragement.

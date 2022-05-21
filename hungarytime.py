@@ -31,8 +31,8 @@ async def on_ready():
     print(f"We have logged in as {bot.user}")
 
 """
-Remove the guild ID and replace
-it with your own servers' if you want
+Remove the guild IDs and replace it
+with your own server's ID if you want
 slash commands to update immediately.
 
 Enable developer mode in Discord and
@@ -40,61 +40,61 @@ right click on your server from the
 server list and select "Copy ID".
 
 You might get a 405 error, but that's
-harmless, and won't affect anything.
+harmless and it won't affect anything.
 """
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in Hungary.")
 async def time(ctx):
     hungary = dt.now(Hungary)
     await ctx.respond(hungary.strftime("It is %H:%M in Hungary.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in the Philippines.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in the Philippines.")
 async def philippines(ctx):
     phil = dt.now(Philippines)       
     await ctx.respond(phil.strftime("It is %H:%M in the Philippines.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the Alaskan time.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the Alaskan time.")
 async def alaska(ctx):
     alaska = dt.now(Alaska)      
     await ctx.respond(alaska.strftime("It is %H:%M in Alaska, USA.")  + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Mountain Standard Time.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in Mountain Standard Time.")
 async def mountain(ctx):
     mountain = dt.now(Mountain)      
     await ctx.respond(mountain.strftime("It is %H:%M in Mountain Time.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Central Time.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in Central Time.")
 async def central(ctx):
     central = dt.now(Central)
     await ctx.respond(central.strftime("It is %H:%M in US Central Time.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in EST.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in EST.")
 async def eastern(ctx):
     est = dt.now(EST)
     await ctx.respond(est.strftime("It is %H:%M, Eastern Standard Time.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in American Samoa.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in American Samoa.")
 async def samoa(ctx):
     samoa = dt.now(Samoa)
     await ctx.respond(samoa.strftime("It is %H:%M in the American Samoa.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in the UK.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in the UK.")
 async def uk(ctx):
     uk = dt.now(UK)
     await ctx.respond(uk.strftime("It is %H:%M in the UK.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Pacific Time.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in Pacific Time.")
 async def pacific(ctx):
     pacific = dt.now(Pacific) 
     await ctx.respond(pacific.strftime("It is %H:%M in Pacific Time.") + DST)
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in India.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in India.")
 async def india(ctx):
     india = dt.now(India) 
     await ctx.respond(india.strftime("It is %H:%M in India.") + DST)
 
 # Intended to be like a clock tower
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary every hour.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the time in Hungary every hour.")
 async def timekeep(ctx):
     await ctx.respond("Timekeep initialized.")
     await asyncio.sleep(1)
@@ -102,13 +102,15 @@ async def timekeep(ctx):
         hungary = dt.now(Hungary)
         await ctx.channel.send(hungary.strftime("Ding Dong! It is %H:%M in Hungary.") + DST)
         await asyncio.sleep(3600)
+        if message.content == "stop":
+            break
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Send the link to the GitHub repo.")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Send the link to the GitHub repo.")
 async def github(ctx):
     await ctx.respond("Hi! You can visit my repository here:\n"
                       "https://github.com/CatFishing4Guyz/hungarytime_discordbot")
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the list of commands, most are self-explanatory")
+@bot.slash_command(guild_ids=[831412377869221899, 929320814724124722], description="Sends the list of commands, most are self-explanatory")
 async def help(ctx):
     await ctx.respond("Options:\n"
                       "`help` - show this message\n" 
