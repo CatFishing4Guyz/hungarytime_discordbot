@@ -52,10 +52,6 @@ In the meantime, just do what [this StackOverflow answer](https://stackoverflow.
 ## Credits
 CatFishing4Guyz, coding the bot, suggestions, testing.
 
-Alive, suggestions, testing, and encouragement.
-
-Kxng, suggestions and encouragement.
-
 Swemit, testing, and encouragement.
 
 Thank you for the help :)
