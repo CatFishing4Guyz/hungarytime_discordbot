@@ -7,30 +7,8 @@ import os
 from datetime import datetime as dt
 from discord import Option
 
-DST = " If DST is in effect, the actual time is an hour ahead."
+REPLACE_WITH_GUILD_ID = os.getenv('GUILD_ID')
 
-def Time(Timezone):
-    match Timezone:
-        case Timezone == "Hungary":
-            return dt.now(pytz.timezone("Europe/Budapest")).strftime("It is %d %B %Y, %H:%M in Hungary.") + DST
-        case Timezone == "Alaska":
-            return dt.now(pytz.timezone("US/Alaska")).strftime("It is %d %B %Y, %H:%M in Alaska.") + DST
-        case Timezone == "Central":
-            return dt.now(pytz.timezone("US/Central")).strftime("It is %d %B %Y, %H:%M, Central Time.") + DST
-        case Timezone == "Eastern":
-            return dt.now(pytz.timezone("US/Eastern")).strftime("It is %d %B %Y, %H:%M, Eastern Time.") + DST
-        case Timezone == "India":
-            return dt.now(pytz.timezone("Asia/Kolkata")).strftime("It is %d %B %Y, %H:%M in India.") + DST
-        case Timezone == "Mountain":
-            return dt.now(pytz.timezone("US/Mountain")).strftime("It is %d %B %Y, %H:%M, Mountain Time.") + DST
-        case Timezone == "Pacific":
-            return dt.now(pytz.timezone("US/Pacific")).strftime("It is %d %B %Y, %H:%M, Pacific Time.") + DST
-        case Timezone == "American Samoa":
-            return dt.now(pytz.timezone("US/Samoa")).strftime("It is %d %B %Y, %H:%M in American Samoa.") + DST
-        case Timezone == "United Kingdom":
-            return dt.now(pytz.timezone("GMT")).strftime("It is %d %B %Y, %H:%M in the United Kingdom.") + DST
-
-# Main body
 bot = discord.Bot(activity = discord.Activity(
     type=discord.ActivityType.watching, 
     name="ur mom undress."))
@@ -52,41 +30,55 @@ You might get a 405 error, but that's
 harmless and it won't affect anything.
 """
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the time in Hungary.")
-async def time(ctx, timezone: Option(str, required=False, default="Hungary",
+@bot.slash_command(guild_ids=[REPLACE_WITH_GUILD_ID], description="Sends the time in Hungary.")
+async def time(ctx, timezone: Option(str, required=False, default="Europe/Budapest",
                                      description="Tell the time where?",
                                      choices=[
-                                        "Hungary",
-                                        "Persistent"
-                                        "Alaska",
-                                        "Central Time",
-                                        "Eastern Time",
-                                        "India",
-                                        "Mountain Time",
-                                        "Pacific Time",
-                                        "Philippines"
-                                        "American Samoa",
-                                        "United Kingdom",
+                                        "Europe/Budapest",
+                                        "Asia/Kolkata",
+                                        "Asia/Manila",
+                                        "Europe/London",
+                                        "US/Alaska",
+                                        "US/Central",
+                                        "US/Eastern",
+                                        "US/Mountain",
+                                        "US/Pacific",
+                                        "US/Samoa",
                                      ]
-                              )
+                              ),
+               # Actually `bool`, but that doesn't work
+               should_persist: Option(str, required=True, default="False",
+                                      description="Hourly time update. Choose False if you don't care",
+                                      choices=[
+                                        "False",
+                                        "True",
+                                      ]
+                               )
           ):
-    if timezone == "Persistent":
+    DST = " If DST is in effect, the actual time is an hour ahead."
+    def Time(Timezone):
+        return dt.now(
+            pytz.timezone(
+                f"{Timezone}")).strftime(
+                    f"It is %d %B %Y, %H:%M in {Timezone}.") + DST
+    if bool(should_persist):
         # Definitely does not work
         await ctx.respond("Timekeep initialized.")
         await asyncio.sleep(1)
         while True:
-            await ctx.send(Timezone("Hungary"))
-            if message.content == "stop":
+            await ctx.send(Time("Europe/Budapest"))
+            if ctx.content == "test":
+                await ctx.reply("Test")
                 break
     else:
-        await ctx.reply(Timezone(timezone))  
+        await ctx.respond(Time(timezone)) 
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Send the link to the GitHub repo.")
+@bot.slash_command(guild_ids=[REPLACE_WITH_GUILD_ID], description="Send the link to the GitHub repository.")
 async def github(ctx):
     await ctx.respond("Hi! You can visit my repository here:\n"
                       "https://github.com/CatFishing4Guyz/hungarytime_discordbot")
 
-@bot.slash_command(guild_ids=[831412377869221899], description="Sends the list of commands, most are self-explanatory")
+@bot.slash_command(guild_ids=[REPLACE_WITH_GUILD_ID], description="Sends the list of commands, most are self-explanatory")
 async def help(ctx):
     await ctx.respond("Options:\n"
                       "`help` - show this message\n" 
