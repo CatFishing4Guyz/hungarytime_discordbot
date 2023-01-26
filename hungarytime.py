@@ -14,7 +14,7 @@ bot = discord.Bot(activity = discord.Activity(
 async def on_ready():
     print(f"We have logged in as {bot.user}")
 
-MY_GUILD_ID = os.getenv('GUILD_ID')
+MY_GUILD_ID = os.getenv('GUILD_ID') # optional
 @bot.slash_command(guild_ids=[MY_GUILD_ID], description="Check the time in various timezones")
 async def time(ctx, timezone: Option(str, required=False, default="Europe/Budapest",
                                      description="Tell the time where?")):
